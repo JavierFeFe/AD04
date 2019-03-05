@@ -85,3 +85,6 @@ private void mostrarResultados(List resultList){
 }
 ```
 *Creo el método para introducir el resultado en la tabla*
+  
+![image](https://user-images.githubusercontent.com/44543081/53837277-84f5ff00-3f92-11e9-8961-317315476640.png)  
+*Muestro funcionamiento*
