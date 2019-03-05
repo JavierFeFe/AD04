@@ -46,4 +46,42 @@ Tomando como referencia el proyecto de ejemplo, realiza un proyecto Java en NetB
 ![image](https://user-images.githubusercontent.com/44543081/53836701-efa63b00-3f90-11e9-9976-356ddcaa208e.png)  
 *Diseño un frame para realizar las consultas*  
 
+```Java
+private static String CONSULTA_BASADA_EN_TITULO="from Film a where a.title like '";
+private void btBuscarActionPerformed(java.awt.event.ActionEvent evt) {                                         
+    // TODO add your handling code here:
+    ejecutaConsultaBasadaEnTitulo();
+}  
 
+```  
+*Almaceno un String con parte del código de consulta y creo el actionPerformed del botón buscar*
+```Java
+private void ejecutaHQLConsulta (String hql){
+    Session session = HibernateUtil.getSessionFactory().openSession();
+    session.beginTransaction();
+    Query consulta = session.createQuery(hql);
+    List resultList = consulta.list();
+    mostrarResultados (resultList);
+    session.getTransaction().commit();
+}
+```
+*Genero el código que creará la conexión y realizará la consulta*
+```Java
+private void mostrarResultados(List resultList){
+    Vector<String> tableHeaders = new Vector<String>();
+    Vector tableData = new Vector();
+    tableHeaders.add("Título");
+    tableHeaders.add("Año");
+    tableHeaders.add("Rating");
+    for (Object o :resultList){
+        Film film = (Film) o;
+        Vector <Object> oneRow = new Vector<Object>();
+        oneRow.add(film.getTitle());
+        oneRow.add(film.getReleaseYear());
+        oneRow.add(film.getRating());
+        tableData.add(oneRow);
+    }
+    tbResultados.setModel(new DefaultTableModel(tableData, tableHeaders));
+}
+```
+*Creo el método para introducir el resultado en la tabla*
